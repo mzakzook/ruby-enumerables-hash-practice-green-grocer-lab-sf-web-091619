@@ -12,18 +12,18 @@
 # return new_cart
 # end
 
-def consolidate_cart(cart)
-  # Get hash of objects
-  new_cart = cart.reduce(:merge)
+# def consolidate_cart(cart)
+#   # Get hash of objects
+#   new_cart = cart.reduce(:merge)
 
-  # Get list of keys
-  item_names = cart.flat_map(&:keys)
+#   # Get list of keys
+#   item_names = cart.flat_map(&:keys)
 
-  # Add count to object
-  new_cart.keys.map{|key| new_cart[key][:count] = item_names.count(key)}
+#   # Add count to object
+#   new_cart.keys.map{|key| new_cart[key][:count] = item_names.count(key)}
 
-new_cart
-end
+# new_cart
+# end
 
 def apply_coupons(cart, coupons)
   # Iterate over coupons
@@ -49,22 +49,22 @@ cart
 end
 
 
-apply_coupons({
-  "AVOCADO" => {:price => 3.00, :clearance => true, :count => 3},
-  "KALE"    => {:price => 3.00, :clearance => false, :count => 1}
-}, [{:item => "AVOCADO", :num => 2, :cost => 5.00}])
+# apply_coupons({
+#   "AVOCADO" => {:price => 3.00, :clearance => true, :count => 3},
+#   "KALE"    => {:price => 3.00, :clearance => false, :count => 1}
+# }, [{:item => "AVOCADO", :num => 2, :cost => 5.00}])
 
 
 
-def apply_clearance(cart)
-  # code here
-  cart.keys.each do |item|
-    if cart[key][:clearance] == true
-      cart[key][price] = (cart[key][price] * 0.8).round(2)
-    end
-  end
-  cart
-end
+# def apply_clearance(cart)
+#   # code here
+#   cart.keys.each do |item|
+#     if cart[key][:clearance] == true
+#       cart[key][price] = (cart[key][price] * 0.8).round(2)
+#     end
+#   end
+#   cart
+# end
 
 def checkout(cart, coupons)
   # code here
