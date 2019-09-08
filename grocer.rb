@@ -33,9 +33,9 @@ def apply_coupons(cart, coupons)
     if cart.keys.include?(coupon_item) && cart[coupon_item][:count] >= coupon[:num]
       # Modify the existing cart item to decrement count
       cart[coupon_item][:count] -= coupon[:num]
-      if cart[coupon_item][:count] == 0
-        cart.delete(coupon_item)
-      end
+      # if cart[coupon_item][:count] == 0
+      #   cart.delete(coupon_item)
+      # end
       # Create new cart item with new price, "W/COUPON", count
       reduced_price_item = coupon_item + " W/COUPON"
       if cart[reduced_price_item]
