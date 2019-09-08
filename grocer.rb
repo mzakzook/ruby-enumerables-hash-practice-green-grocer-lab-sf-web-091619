@@ -12,18 +12,18 @@
 # return new_cart
 # end
 
-# def consolidate_cart(cart)
-#   # Get hash of objects
-#   new_cart = cart.reduce(:merge)
+def consolidate_cart(cart)
+  # Get hash of objects
+  new_cart = cart.reduce(:merge)
 
-#   # Get list of keys
-#   item_names = cart.flat_map(&:keys)
+  # Get list of keys
+  item_names = cart.flat_map(&:keys)
 
-#   # Add count to object
-#   new_cart.keys.map{|key| new_cart[key][:count] = item_names.count(key)}
+  # Add count to object
+  new_cart.keys.map{|key| new_cart[key][:count] = item_names.count(key)}
 
-# new_cart
-# end
+new_cart
+end
 
 def apply_coupons(cart, coupons)
   # Iterate over coupons
