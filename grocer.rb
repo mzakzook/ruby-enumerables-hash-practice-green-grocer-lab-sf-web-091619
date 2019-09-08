@@ -67,48 +67,20 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
-  # code here
-   # Get hash of objects
-  new_cart = cart.reduce(:merge)
-
-  # Get list of keys
-  item_names = cart.flat_map(&:keys)
-
-  # Add count to object
-  new_cart.keys.map{|key| new_cart[key][:count] = item_names.count(key)}
-
-  coupons.each do |coupon|
-    coupon_item = coupon[:item]
-    # See if the coupon item name is in our cart
-    if new_cart.keys.include?(coupon_item) && new_cart[coupon_item][:count] >= coupon[:num]
-      # Modify the existing cart item to decrement count
-      new_cart[coupon_item][:count] -= coupon[:num]
-      # if new_cart[coupon_item][:count] == 0
-      #   new_cart.delete(coupon_item)
-      # end
-      # Create new cart item with new price, "W/COUPON", count
-      reduced_price_item = coupon_item + " W/COUPON"
-      if new_cart[reduced_price_item]
-        new_cart[reduced_price_item][:count] += coupon[:num]
-      else
-        new_cart[reduced_price_item] = {:price => coupon[:cost] / coupon[:num], :clearance => new_cart[coupon_item][:clearance], :count => coupon[:num]}
-      end
-    end
-  
-  new_cart.keys.each do |key|
-    if new_cart[key][:clearance] == true
-      new_cart[key][:price] = (new_cart[key][:price] * 0.8).round(2)
-    end
-  end
-  
-  total = 0
-  new_cart.keys.each do |key|
-    total += new_cart[key][:price] * new_cart[key][:count]
-  end
-  
-  if total > 100
-    total = (total * 0.9).round(2)
-  end
+ consolidated = consolidate_cart(cart)
+ coupons_applied = apply_coupons(consolidated, coupons)
+ clearance_applied = apply_clearance(coupons_applied)
+ 
+ total = 0
+ clearance_applied.keys.each do |key|
+   total += clearance_applied[key][:price] * clearance_applied[key][:count]
+ end
+ 
+ if total > 100
+   total = (total * 0.9).round(2)
+ end
   
   total
+  
 end
+   
